@@ -18,6 +18,9 @@ class CloudflareAuthMiddlware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if ($request->cloudflareAccount->user->id !== auth()->user()->id) {
+            return redirect()->route('cloudflare-accounts.index');
+        }
         ZoneHttpClient::make()->auth($request->cloudflareAccount->toArray());
         AccountHttpClient::make()->auth($request->cloudflareAccount->toArray());
         PageRuleHttpClient::make()->auth($request->cloudflareAccount->toArray());
