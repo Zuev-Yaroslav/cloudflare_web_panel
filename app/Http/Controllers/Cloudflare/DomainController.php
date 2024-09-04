@@ -48,7 +48,6 @@ class DomainController extends Controller
         ZoneHttpClient::make()
             ->updateSetting($domainId, $settingId, $data);
         return DomainResource::make(ZoneHttpClient::make()
-            ->auth($cloudflareAccount->toArray())
             ->show($domainId)['result'])->resolve();
     }
     public function edit(CloudflareAccount $cloudflareAccount, string $domainId)
