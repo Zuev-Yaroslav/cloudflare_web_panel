@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use JetBrains\PhpStorm\Pure;
 
 class CloudflareApiException extends Exception
@@ -39,6 +40,7 @@ class CloudflareApiException extends Exception
     public static function checkIfFails(Collection $result): void
     {
         if (!$result['success']) {
+            Cache::flush();
             throw new self($result['errors'][0]['message'], Response::HTTP_UNPROCESSABLE_ENTITY, messages: $result['messages']);
         }
     }
