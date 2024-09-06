@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Resources\PageRule;
+namespace App\Http\Resources\PageRule\Action;
 
-use App\Http\Resources\PageRule\Action\ActionResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PageRuleResource extends JsonResource
+class ActionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +16,7 @@ class PageRuleResource extends JsonResource
     {
         return [
             'id' => $this['id'],
-            'actions' => ActionResource::collection($this['actions'])->resolve(),
-            'status' => $this['status'],
-            'targets' => $this['targets'],
+            'value' => (string)$this['value']
         ];
     }
 }
