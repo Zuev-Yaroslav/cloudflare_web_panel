@@ -21,12 +21,12 @@ class DomainController extends Controller
     {
         $domains = DomainResource::collection(ZoneHttpClient::make()
             ->index()['result'])->resolve();
-        $cloudflareAccount = PageRuleResource::make($cloudflareAccount)->resolve();
+        $cloudflareAccount = CloudflareAccountResource::make($cloudflareAccount)->resolve();
         return inertia('Cloudflare/Account/Domain/Index', compact('domains', 'cloudflareAccount'));
     }
     public function create(CloudflareAccount $cloudflareAccount)
     {
-        $cloudflareAccount = PageRuleResource::make($cloudflareAccount)->resolve();
+        $cloudflareAccount = CloudflareAccountResource::make($cloudflareAccount)->resolve();
         return inertia('Cloudflare/Account/Domain/Create', compact('cloudflareAccount'));
     }
     public function store(CloudflareAccount $cloudflareAccount, StoreRequest $request)
@@ -54,7 +54,7 @@ class DomainController extends Controller
     {
         $domain = DomainResource::make(ZoneHttpClient::make()
             ->show($domainId)['result'])->resolve();
-        $cloudflareAccount = PageRuleResource::make($cloudflareAccount)->resolve();
+        $cloudflareAccount = CloudflareAccountResource::make($cloudflareAccount)->resolve();
         return inertia('Cloudflare/Account/Domain/Edit', compact('domain', 'cloudflareAccount'));
     }
     public function storePageRule(CloudflareAccount $cloudflareAccount, string $domainId, StorePageRuleRequest $request)
